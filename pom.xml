@@ -9,6 +9,10 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <projectJmeterFolder>${basedir}/src/test/java</projectJmeterFolder>
+        <projectResourceFolder>${basedir}/src/test/resource</projectResourceFolder>
+        <testFile>1-10.jmx</testFile>
     </properties>
     <dependencies>
         <dependency>
@@ -17,8 +21,24 @@
             <version>6.11</version>
         </dependency>
     </dependencies>
-    <build>
+   <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.3.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                    <showWarnings>true</showWarnings>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>com.lazerycode.jmeter</groupId>
                 <artifactId>jmeter-maven-plugin</artifactId>
@@ -35,28 +55,30 @@
                     <testFilesDirectory>src/test/java</testFilesDirectory>
                     <resultsFileFormat>jtl</resultsFileFormat>
                     <testFilesIncluded>
-                        <jMeterTestFile>1-10.jmx</jMeterTestFile>
-                        <jMeterTestFile>1-1000.jmx</jMeterTestFile>
-                        <jMeterTestFile>1-5001.jmx</jMeterTestFile>
-                    </testFilesIncluded>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>de.codecentric</groupId>
-                <artifactId>jmeter-graph-maven-plugin</artifactId>
-                <version>0.1.0</version>
-                <configuration>
-                    <inputFile>${project.build.directory}/jmeter/results/20180322-1-10.jtl</inputFile>
-                    <inputFile>${project.build.directory}/jmeter/results/20180322-1-1000.jtl</inputFile>
-                    <inputFile>${project.build.directory}/jmeter/results/20180322-1-5001.jtl</inputFile>
+                        <jMeterTestFile>1-100.jmx</jMeterTestFile>
+                    <!-- <jMeterTestFile>1-100.jmx</jMeterTestFile>
+                     <jMeterTestFile>1-1000.jmx</jMeterTestFile>
+                     <jMeterTestFile>1-5001.jmx</jMeterTestFile>-->
+                 </testFilesIncluded>
+             </configuration>
+         </plugin>
+         <plugin>
+             <groupId>de.codecentric</groupId>
+             <artifactId>jmeter-graph-maven-plugin</artifactId>
+             <version>0.1.0</version>
+             <configuration>
+                 <inputFile>${project.build.directory}/jmeter/results/20180322-1-10.jtl</inputFile>
+                 <!-- <inputFile>${project.build.directory}/jmeter/results/20180322-1-100.jtl</inputFile>
+                <inputFile>${project.build.directory}/jmeter/results/20180322-1-1000.jtl</inputFile>
+                 <inputFile>${project.build.directory}/jmeter/results/20180322-1-5001.jtl</inputFile>-->
                     <graphs>
                         <graph>
                             <pluginType>ResponseTimesOverTime</pluginType>
                             <width>800</width>
                             <height>600</height>
                             <outputFile>${project.build.directory}/jmeter/results/1-10.png</outputFile>
-                            <outputFile>${project.build.directory}/jmeter/results/1-1000.png</outputFile>
-                            <outputFile>${project.build.directory}/jmeter/results/1-5001.png</outputFile>
+                            <!--<outputFile>${project.build.directory}/jmeter/results/1-1000.png</outputFile>
+                            <outputFile>${project.build.directory}/jmeter/results/1-5001.png</outputFile>-->
                         </graph>
                     </graphs>
                 </configuration>
